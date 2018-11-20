@@ -5,70 +5,70 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MemeBank.Models;
-using MemeBank.Helpers;
+using GuildrAPI.Models;
+using GuildrAPI.Helpers;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.Extensions.Configuration;
 
-namespace MemeBank.Controllers
+namespace GuildrAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Meme")]
+    [Route("api/Profile")]
     public class ProfileController : Controller
     {
-        private readonly MemeBankContext _context;
+        private readonly GuildrAPIContext _context;
 
         private IConfiguration _configuration;
 
-        public ProfileController(MemeBankContext context, IConfiguration configuration)
+        public ProfileController(GuildrAPIContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
         }
 
-        // GET: api/Meme
+        // GET: api/Profile
         [HttpGet]
-        public IEnumerable<MemeItem> GetMemeItem()
+        public IEnumerable<ProfileItem> GetProfileItem()
         {
-            return _context.MemeItem;
+            return _context.ProfileItem;
         }
 
-        // GET: api/Meme/5
+        // GET: api/Profile/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMemeItem([FromRoute] int id)
+        public async Task<IActionResult> GetProfileItem([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var memeItem = await _context.MemeItem.SingleOrDefaultAsync(m => m.Id == id);
+            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (memeItem == null)
+            if (profileItem == null)
             {
                 return NotFound();
             }
 
-            return Ok(memeItem);
+            return Ok(profileItem);
         }
 
-        // PUT: api/Meme/5
+        // PUT: api/Profile/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMemeItem([FromRoute] int id, [FromBody] MemeItem memeItem)
+        public async Task<IActionResult> PutProfileItem([FromRoute] int id, [FromBody] ProfileItem profileItem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != memeItem.Id)
+            if (id != profileItem.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(memeItem).State = EntityState.Modified;
+            _context.Entry(profileItem).State = EntityState.Modified;
 
             try
             {
@@ -76,7 +76,7 @@ namespace MemeBank.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MemeItemExists(id))
+                if (!ProfileItemExists(id))
                 {
                     return NotFound();
                 }
@@ -89,62 +89,62 @@ namespace MemeBank.Controllers
             return NoContent();
         }
 
-        // POST: api/Meme
+        // POST: api/Profile
         [HttpPost]
-        public async Task<IActionResult> PostMemeItem([FromBody] MemeItem memeItem)
+        public async Task<IActionResult> PostProfileItem([FromBody] ProfileItem profileItem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.MemeItem.Add(memeItem);
+            _context.ProfileItem.Add(profileItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMemeItem", new { id = memeItem.Id }, memeItem);
+            return CreatedAtAction("GetProfileItem", new { id = profileItem.Id }, profileItem);
         }
 
-        // DELETE: api/Meme/5
+        // DELETE: api/Profile/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMemeItem([FromRoute] int id)
+        public async Task<IActionResult> DeleteProfileItem([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var memeItem = await _context.MemeItem.SingleOrDefaultAsync(m => m.Id == id);
-            if (memeItem == null)
+            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Id == id);
+            if (profileItem == null)
             {
                 return NotFound();
             }
 
-            _context.MemeItem.Remove(memeItem);
+            _context.ProfileItem.Remove(profileItem);
             await _context.SaveChangesAsync();
 
-            return Ok(memeItem);
+            return Ok(profileItem);
         }
 
-        private bool MemeItemExists(int id)
+        private bool ProfileItemExists(int id)
         {
-            return _context.MemeItem.Any(e => e.Id == id);
+            return _context.ProfileItem.Any(e => e.Id == id);
         }
 
-        // GET: api/Meme/Tags
+        // GET: api/Profile/Tags
         [Route("tags")]
         [HttpGet]
         public async Task<List<string>> GetTags()
         {
-            var memes = (from m in _context.MemeItem
+            var profiles = (from m in _context.ProfileItem
                          select m.Tags).Distinct();
 
-            var returned = await memes.ToListAsync();
+            var returned = await profiles.ToListAsync();
 
             return returned;
         }
 
         [HttpPost, Route("upload")]
-        public async Task<IActionResult> UploadFile([FromForm]MemeImageItem meme)
+        public async Task<IActionResult> UploadFile([FromForm]ProfileImageItem profile)
         {
             if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
             {
@@ -152,9 +152,9 @@ namespace MemeBank.Controllers
             }
             try
             {
-                using (var stream = meme.Image.OpenReadStream())
+                using (var stream = profile.Image.OpenReadStream())
                 {
-                    var cloudBlock = await UploadToBlob(meme.Image.FileName, null, stream);
+                    var cloudBlock = await UploadToBlob(profile.Image.FileName, null, stream);
                     //// Retrieve the filename of the file you have uploaded
                     //var filename = provider.FileData.FirstOrDefault()?.LocalFileName;
                     if (string.IsNullOrEmpty(cloudBlock.StorageUri.ToString()))
@@ -162,20 +162,20 @@ namespace MemeBank.Controllers
                         return BadRequest("An error has occured while uploading your file. Please try again.");
                     }
 
-                    MemeItem memeItem = new MemeItem();
-                    memeItem.Title = meme.Title;
-                    memeItem.Tags = meme.Tags;
+                    ProfileItem profileItem = new ProfileItem();
+                    profileItem.Title = profile.Title;
+                    profileItem.Tags = profile.Tags;
 
                     System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
-                    memeItem.Height = image.Height.ToString();
-                    memeItem.Width = image.Width.ToString();
-                    memeItem.Url = cloudBlock.SnapshotQualifiedUri.AbsoluteUri;
-                    memeItem.Uploaded = DateTime.Now.ToString();
+                    profileItem.Height = image.Height.ToString();
+                    profileItem.Width = image.Width.ToString();
+                    profileItem.Url = cloudBlock.SnapshotQualifiedUri.AbsoluteUri;
+                    profileItem.Uploaded = DateTime.Now.ToString();
 
-                    _context.MemeItem.Add(memeItem);
+                    _context.ProfileItem.Add(profileItem);
                     await _context.SaveChangesAsync();
 
-                    return Ok($"File: {meme.Title} has successfully uploaded");
+                    return Ok($"File: {profile.Title} has successfully uploaded");
                 }
             }
             catch (Exception ex)

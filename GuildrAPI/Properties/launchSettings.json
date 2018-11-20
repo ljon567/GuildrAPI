@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MemeBank": {
+    "GuildrAPI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

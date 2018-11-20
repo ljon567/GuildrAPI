@@ -9,10 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using MemeBank.Models;
+using GuildrAPI.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace MemeBank
+namespace GuildrAPI
 {
     public class Startup
     {
@@ -28,13 +28,13 @@ namespace MemeBank
         {
             services.AddMvc();
 
-            services.AddDbContext<MemeBankContext>(options =>
-                                options.UseSqlite(Configuration.GetConnectionString("MemeBankContext")));
+            services.AddDbContext<GuildrAPIContext>(options =>
+                                options.UseSqlite(Configuration.GetConnectionString("GuildrAPIContext")));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "MemeBank", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "GuildrAPI", Version = "v1" });
             });
         }
 

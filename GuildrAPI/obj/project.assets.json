@@ -14526,11 +14526,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\source\\repos\\MemeBank\\MemeBank\\GuildrAPI.csproj",
+      "projectUniqueName": "C:\\Users\\user\\source\\repos\\GuildrAPI\\GuildrAPI\\GuildrAPI.csproj",
       "projectName": "GuildrAPI",
-      "projectPath": "C:\\Users\\user\\source\\repos\\MemeBank\\MemeBank\\GuildrAPI.csproj",
+      "projectPath": "C:\\Users\\user\\source\\repos\\GuildrAPI\\GuildrAPI\\GuildrAPI.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\source\\repos\\MemeBank\\MemeBank\\obj\\",
+      "outputPath": "C:\\Users\\user\\source\\repos\\GuildrAPI\\GuildrAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

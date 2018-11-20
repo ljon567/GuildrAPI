@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MemeBank.Models
+namespace GuildrAPI.Models
 {
-    public class MemeItem
+    public class ProfileItem
     {
         public int Id { get; set; }
         public string Title { get; set; }

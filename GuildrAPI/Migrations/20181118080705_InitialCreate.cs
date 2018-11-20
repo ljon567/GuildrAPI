@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MemeBank.Migrations
+namespace GuildrAPI.Migrations
 {
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MemeItem",
+                name: "ProfileItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -21,14 +21,14 @@ namespace MemeBank.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MemeItem", x => x.Id);
+                    table.PrimaryKey("PK_ProfileItem", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MemeItem");
+                name: "ProfileItem");
         }
     }
 }
