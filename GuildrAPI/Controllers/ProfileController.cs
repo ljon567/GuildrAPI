@@ -194,7 +194,7 @@ namespace GuildrAPI.Controllers
             var storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, accountKey), true);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-            CloudBlobContainer imagesContainer = blobClient.GetContainerReference("images");
+            CloudBlobContainer imagesContainer = blobClient.GetContainerReference("profileimages");
 
             string storageConnectionString = _configuration["AzureBlob:connectionString"];
 
