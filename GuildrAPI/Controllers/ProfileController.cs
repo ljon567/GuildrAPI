@@ -54,7 +54,7 @@ namespace GuildrAPI.Controllers
             return Ok(profileItem);
         }
 
-        // PUT: api/Profile/5
+        // PUT: api/Profile/id (Update profile #id)
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProfileItem([FromRoute] int id, [FromBody] ProfileItem profileItem)
         {
@@ -104,7 +104,7 @@ namespace GuildrAPI.Controllers
             return CreatedAtAction("GetProfileItem", new { id = profileItem.Id }, profileItem);
         }
 
-        // DELETE: api/Profile/5
+        // DELETE: api/Profile/id (Delete profile #id)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfileItem([FromRoute] int id)
         {
@@ -130,7 +130,7 @@ namespace GuildrAPI.Controllers
             return _context.ProfileItem.Any(e => e.Id == id);
         }
 
-        // GET: api/Profile/Class
+        // GET: api/Profile/Class (Get all classes)
         [Route("class")]
         [HttpGet]
         public async Task<List<string>> GetClass()
@@ -143,6 +143,7 @@ namespace GuildrAPI.Controllers
             return returned;
         }
 
+        //Upload profile image to blob storage
         [HttpPost, Route("upload")]
         public async Task<IActionResult> UploadFile([FromForm]ProfileImageItem profile)
         {
@@ -155,18 +156,19 @@ namespace GuildrAPI.Controllers
                 using (var stream = profile.Image.OpenReadStream())
                 {
                     var cloudBlock = await UploadToBlob(profile.Image.FileName, null, stream);
-                    //// Retrieve the filename of the file you have uploaded
-                    //var filename = provider.FileData.FirstOrDefault()?.LocalFileName;
+
                     if (string.IsNullOrEmpty(cloudBlock.StorageUri.ToString()))
                     {
                         return BadRequest("An error has occured while uploading your file. Please try again.");
                     }
 
+                    //Upload all variables
                     ProfileItem profileItem = new ProfileItem();
                     profileItem.Name = profile.Name;
                     profileItem.Class = profile.Class;
                     profileItem.Level = profile.Level;
 
+                    //Upload url of image
                     System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
                     profileItem.Url = cloudBlock.SnapshotQualifiedUri.AbsoluteUri;
                     profileItem.Uploaded = DateTime.Now.ToString();
@@ -185,6 +187,7 @@ namespace GuildrAPI.Controllers
 
         }
 
+        //Send image file to blob storage on Azure
         private async Task<CloudBlockBlob> UploadToBlob(string filename, byte[] imageBuffer = null, System.IO.Stream stream = null)
         {
 
@@ -197,16 +200,16 @@ namespace GuildrAPI.Controllers
 
             string storageConnectionString = _configuration["AzureBlob:connectionString"];
 
-            // Check whether the connection string can be parsed.
+            //Check whether the connection string can be parsed
             if (CloudStorageAccount.TryParse(storageConnectionString, out storageAccount))
             {
                 try
                 {
-                    // Generate a new filename for every new blob
+                    //Generate a new filename for every new blob
                     var fileName = Guid.NewGuid().ToString();
                     fileName += GetFileExtention(filename);
 
-                    // Get a reference to the blob address, then upload the file to the blob.
+                    //Get a reference to the blob address, then upload the file to the blob
                     CloudBlockBlob cloudBlockBlob = imagesContainer.GetBlockBlobReference(fileName);
 
                     if (stream != null)
@@ -234,13 +237,14 @@ namespace GuildrAPI.Controllers
 
         private string GetFileExtention(string fileName)
         {
+            //No extension
             if (!fileName.Contains("."))
-                return ""; //no extension
+                return ""; 
             else
             {
+                //Assumes last item is the extension 
                 var extentionList = fileName.Split('.');
-                return "." + extentionList.Last(); //assumes last item is the extension 
-            }
+                return "." + extentionList.Last();             }
         }
     }
 }

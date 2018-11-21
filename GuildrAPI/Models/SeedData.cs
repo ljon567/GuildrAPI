@@ -14,10 +14,10 @@ namespace GuildrAPI.Models
             using (var context = new GuildrAPIContext(
                 serviceProvider.GetRequiredService<DbContextOptions<GuildrAPIContext>>()))
             {
-                // Look for any movies.
+                //DB has been seeded already
                 if (context.ProfileItem.Count() > 0)
                 {
-                    return;   // DB has been seeded
+                    return;   
                 }
 
                 context.ProfileItem.AddRange(
