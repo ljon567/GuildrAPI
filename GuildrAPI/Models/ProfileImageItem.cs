@@ -10,7 +10,7 @@ namespace GuildrAPI.Models
     {
         public string Name { get; set; }
         public string Class { get; set; }
-        public string Level { get; set; }
+        public int Level { get; set; }
         public IFormFile Image { get; set; }
     }
 }

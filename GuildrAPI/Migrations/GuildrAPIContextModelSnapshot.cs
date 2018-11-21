@@ -28,7 +28,7 @@ namespace GuildrAPI.Migrations
 
                     b.Property<string>("Url");
 
-                    b.Property<string>("Level");
+                    b.Property<int>("Level");
 
                     b.HasKey("Id");
 
