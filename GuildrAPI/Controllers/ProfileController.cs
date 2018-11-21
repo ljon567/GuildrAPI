@@ -35,16 +35,35 @@ namespace GuildrAPI.Controllers
             return _context.ProfileItem;
         }
 
-        // GET: api/Profile/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProfileItem([FromRoute] int id)
+        // GET: api/Profile/class
+        [HttpGet("{class}")]
+        public async Task<IActionResult> GetProfileItemFromClass([FromRoute] string Class)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Id == id);
+            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Class == Class);
+
+            if (profileItem == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(profileItem);
+        }
+
+        // GET: api/Profile/level
+        [HttpGet("{level}")]
+        public async Task<IActionResult> GetProfileItemFromLevel([FromRoute] string level)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Level == level);
 
             if (profileItem == null)
             {
