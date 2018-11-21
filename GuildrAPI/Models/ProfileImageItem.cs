@@ -8,8 +8,9 @@ namespace GuildrAPI.Models
 {
     public class ProfileImageItem
     {
-        public string Title { get; set; }
-        public string Tags { get; set; }
+        public string Name { get; set; }
+        public string Class { get; set; }
+        public string Level { get; set; }
         public IFormFile Image { get; set; }
     }
 }

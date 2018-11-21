@@ -20,17 +20,15 @@ namespace GuildrAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Height");
+                    b.Property<string>("Class");
 
-                    b.Property<string>("Tags");
-
-                    b.Property<string>("Title");
+                    b.Property<string>("Name");
 
                     b.Property<string>("Uploaded");
 
                     b.Property<string>("Url");
 
-                    b.Property<string>("Width");
+                    b.Property<string>("Level");
 
                     b.HasKey("Id");
 

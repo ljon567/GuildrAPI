@@ -130,13 +130,13 @@ namespace GuildrAPI.Controllers
             return _context.ProfileItem.Any(e => e.Id == id);
         }
 
-        // GET: api/Profile/Tags
-        [Route("tags")]
+        // GET: api/Profile/Class
+        [Route("class")]
         [HttpGet]
-        public async Task<List<string>> GetTags()
+        public async Task<List<string>> GetClass()
         {
             var profiles = (from m in _context.ProfileItem
-                         select m.Tags).Distinct();
+                         select m.Class).Distinct();
 
             var returned = await profiles.ToListAsync();
 
@@ -163,19 +163,18 @@ namespace GuildrAPI.Controllers
                     }
 
                     ProfileItem profileItem = new ProfileItem();
-                    profileItem.Title = profile.Title;
-                    profileItem.Tags = profile.Tags;
+                    profileItem.Name = profile.Name;
+                    profileItem.Class = profile.Class;
+                    profileItem.Level = profile.Level;
 
                     System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
-                    profileItem.Height = image.Height.ToString();
-                    profileItem.Width = image.Width.ToString();
                     profileItem.Url = cloudBlock.SnapshotQualifiedUri.AbsoluteUri;
                     profileItem.Uploaded = DateTime.Now.ToString();
 
                     _context.ProfileItem.Add(profileItem);
                     await _context.SaveChangesAsync();
 
-                    return Ok($"File: {profile.Title} has successfully uploaded");
+                    return Ok($"File: {profile.Name} has successfully uploaded");
                 }
             }
             catch (Exception ex)

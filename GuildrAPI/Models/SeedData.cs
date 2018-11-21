@@ -23,12 +23,11 @@ namespace GuildrAPI.Models
                 context.ProfileItem.AddRange(
                     new ProfileItem
                     {
-                        Title = "Is Mayo an Instrument?",
+                        Name = "Patrick the Star",
                         Url = "https://i.kym-cdn.com/photos/images/original/001/371/723/be6.jpg",
-                        Tags = "spongebob",
+                        Class = "Mage",
                         Uploaded = "07-10-18 4:20T18:25:43.511Z",
-                        Width = "768",
-                        Height = "432"
+                        Level = "420"
                     }
 
 
