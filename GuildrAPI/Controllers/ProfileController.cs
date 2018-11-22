@@ -37,21 +37,11 @@ namespace GuildrAPI.Controllers
 
         // GET: api/Profile/class
         [HttpGet("{Class}")]
-        public async Task<IActionResult> GetProfileItem([FromRoute] string Class)
+        public IEnumerable<ProfileItem> GetProfileItem([FromRoute] string Class)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Class == Class);
-
-            if (profileItem == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(profileItem);
+            //var query = from m in _context.ProfileItem select m;
+            //query.Where(m => m.Class == Class);
+            return _context.ProfileItem.Where(m => m.Class == Class);
         }
 
         // PUT: api/Profile/id (Update profile #id)
