@@ -16,7 +16,8 @@ namespace GuildrAPI.Migrations
                     Url = table.Column<string>(nullable: true),
                     Class = table.Column<string>(nullable: true),
                     Uploaded = table.Column<string>(nullable: true),
-                    Level = table.Column<int>(nullable: true)
+                    Level = table.Column<int>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

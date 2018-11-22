@@ -30,6 +30,8 @@ namespace GuildrAPI.Migrations
 
                     b.Property<int>("Level");
 
+                    b.Property<string>("Password");
+
                     b.HasKey("Id");
 
                     b.ToTable("ProfileItem");

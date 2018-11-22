@@ -27,7 +27,8 @@ namespace GuildrAPI.Models
                         Url = "https://i.kym-cdn.com/photos/images/original/001/371/723/be6.jpg",
                         Class = "Mage",
                         Uploaded = "07-10-18 4:20T18:25:43.511Z",
-                        Level = 420
+                        Level = 420,
+                        Password = "password"
                     }
 
 

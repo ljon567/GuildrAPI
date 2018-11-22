@@ -12,6 +12,7 @@ namespace GuildrAPI.Models
         public string Url { get; set; }
         public string Class { get; set; }
         public string Uploaded { get; set; }
+        public string Password { get; set; }
         public int Level { get; set; }
     }
 }

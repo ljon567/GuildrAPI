@@ -157,6 +157,7 @@ namespace GuildrAPI.Controllers
                     profileItem.Name = profile.Name;
                     profileItem.Class = profile.Class;
                     profileItem.Level = profile.Level;
+                    profileItem.Password = profile.Password;
 
                     //Upload url of image
                     System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
