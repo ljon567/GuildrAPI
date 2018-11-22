@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildrAPI", "GuildrAPI\GuildrAPI.csproj", "{AB72E737-A0C9-4289-96DD-AA7D30FAE53A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestMemeBank", "UnitTestMemeBank\UnitTestMemeBank.csproj", "{F31E5519-1DC0-4C6C-9E0B-23F7D236B5EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestGuildrAPI", "UnitTestGuildrAPI\UnitTestGuildrAPI.csproj", "{F31E5519-1DC0-4C6C-9E0B-23F7D236B5EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
