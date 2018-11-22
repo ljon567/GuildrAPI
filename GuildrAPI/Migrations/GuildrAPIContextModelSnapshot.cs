@@ -36,6 +36,27 @@ namespace GuildrAPI.Migrations
 
                     b.ToTable("ProfileItem");
                 });
+            modelBuilder.Entity("GuildrAPI.Models.PartyItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("PartyName");
+
+                    b.Property<string>("Uploaded");
+
+                    b.Property<string>("Organizer");
+
+                    b.Property<string>("MemberOne");
+
+                    b.Property<int>("MemberTwo");
+
+                    b.Property<string>("MemberThree");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PartyItem");
+                });
 #pragma warning restore 612, 618
         }
     }

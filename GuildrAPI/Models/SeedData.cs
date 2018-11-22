@@ -34,6 +34,27 @@ namespace GuildrAPI.Models
 
                 );
                 context.SaveChanges();
+
+                //DB has been seeded already
+                if (context.PartyItem.Count() > 0)
+                {
+                    return;
+                }
+
+                context.PartyItem.AddRange(
+                    new PartyItem
+                    {
+                        PartyName = "Bikini Bottom Band",
+                        Uploaded = "07-10-18 4:20T18:25:43.511Z",
+                        Organizer = "Patrick the Star",
+                        MemberOne = "Spongebob the Squarepants",
+                        MemberTwo = "Squidward the Tentacles",
+                        MemberThree = "Sandy the Cheeks"
+                    }
+
+
+                );
+                context.SaveChanges();
             }
         }
     }

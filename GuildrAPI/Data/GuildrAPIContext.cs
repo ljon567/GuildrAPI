@@ -14,5 +14,7 @@ namespace GuildrAPI.Models
         }
 
         public DbSet<GuildrAPI.Models.ProfileItem> ProfileItem { get; set; }
+
+        public DbSet<GuildrAPI.Models.PartyItem> PartyItem { get; set; }
     }
 }

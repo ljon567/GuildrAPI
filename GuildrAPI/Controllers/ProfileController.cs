@@ -30,30 +30,28 @@ namespace GuildrAPI.Controllers
 
         // GET: api/Profile
         [HttpGet]
-        public IEnumerable<ProfileItem> GetProfileItem()
+        public IEnumerable<ProfileItem> GetAllProfileItems()
         {
             return _context.ProfileItem;
         }
 
         // GET: api/Profile/class
         [HttpGet("{Class}")]
-        public IEnumerable<ProfileItem> GetProfileItem([FromRoute] string Class)
+        public IEnumerable<ProfileItem> GetProfileItemWithClass([FromRoute] string Class)
         {
-            //var query = from m in _context.ProfileItem select m;
-            //query.Where(m => m.Class == Class);
             return _context.ProfileItem.Where(m => m.Class == Class);
         }
 
         // PUT: api/Profile/id (Update profile #id)
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfileItem([FromRoute] int id, [FromBody] ProfileItem profileItem)
+        [HttpPut("{ProfileID}")]
+        public async Task<IActionResult> PutProfileItem([FromRoute] int ProfileID, [FromBody] ProfileItem profileItem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != profileItem.Id)
+            if (ProfileID != profileItem.Id)
             {
                 return BadRequest();
             }
@@ -66,7 +64,7 @@ namespace GuildrAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProfileItemExists(id))
+                if (!ProfileItemExists(ProfileID))
                 {
                     return NotFound();
                 }
@@ -95,15 +93,15 @@ namespace GuildrAPI.Controllers
         }
 
         // DELETE: api/Profile/id (Delete profile #id)
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfileItem([FromRoute] int id)
+        [HttpDelete("{ProfileID}")]
+        public async Task<IActionResult> DeleteProfileItem([FromRoute] int ProfileID)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Id == id);
+            var profileItem = await _context.ProfileItem.SingleOrDefaultAsync(m => m.Id == ProfileID);
             if (profileItem == null)
             {
                 return NotFound();
@@ -134,7 +132,7 @@ namespace GuildrAPI.Controllers
         }
 
         //Upload profile image to blob storage
-        [HttpPost, Route("upload")]
+        [HttpPost, Route("uploadProfileImage")]
         public async Task<IActionResult> UploadFile([FromForm]ProfileImageItem profile)
         {
             if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
