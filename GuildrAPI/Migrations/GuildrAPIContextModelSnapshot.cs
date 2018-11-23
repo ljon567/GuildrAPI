@@ -53,6 +53,8 @@ namespace GuildrAPI.Migrations
 
                     b.Property<string>("MemberThree");
 
+                    b.Property<string>("Password");
+
                     b.HasKey("Id");
 
                     b.ToTable("PartyItem");

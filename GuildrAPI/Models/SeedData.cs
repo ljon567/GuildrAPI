@@ -49,7 +49,8 @@ namespace GuildrAPI.Models
                         Organizer = "Patrick the Star",
                         MemberOne = "Spongebob the Squarepants",
                         MemberTwo = "Squidward the Tentacles",
-                        MemberThree = "Sandy the Cheeks"
+                        MemberThree = "Sandy the Cheeks",
+                        Password = "password"
                     }
 
 

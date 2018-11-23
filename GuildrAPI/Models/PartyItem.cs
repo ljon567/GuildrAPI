@@ -14,5 +14,6 @@ namespace GuildrAPI.Models
         public string MemberOne { get; set; }
         public string MemberTwo { get; set; }
         public string MemberThree { get; set; }
+        public string Password { get; set; }
     }
 }

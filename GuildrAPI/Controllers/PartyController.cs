@@ -126,6 +126,7 @@ namespace GuildrAPI.Controllers
             PartyItem partyItem = new PartyItem();
             partyItem.PartyName = party.PartyName;
             partyItem.Organizer = party.Organizer;
+            partyItem.Password = party.Password;
             partyItem.Uploaded = DateTime.Now.ToString();
 
             _context.PartyItem.Add(partyItem);

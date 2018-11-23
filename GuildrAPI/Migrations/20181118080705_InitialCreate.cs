@@ -34,7 +34,8 @@ namespace GuildrAPI.Migrations
                     Organizer = table.Column<string>(nullable: true),
                     MemberOne = table.Column<string>(nullable: true),
                     MemberTwo = table.Column<string>(nullable: true),
-                    MemberThree = table.Column<string>(nullable: true)
+                    MemberThree = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

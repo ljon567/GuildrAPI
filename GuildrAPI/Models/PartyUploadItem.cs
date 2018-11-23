@@ -9,5 +9,6 @@ namespace GuildrAPI.Models
     {
         public string PartyName { get; set; }
         public string Organizer { get; set; }
+        public string Password { get; set; }
     }
 }
